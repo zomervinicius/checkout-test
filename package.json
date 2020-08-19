@@ -44,6 +44,7 @@
     "@types/react-dom": "^16.9.8",
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
+    "autoprefixer": "^9.8.6",
     "babel-plugin-module-resolver": "^4.0.0",
     "commitizen": "^4.1.2",
     "cz-conventional-changelog": "3.1.0",
@@ -58,7 +59,9 @@
     "eslint-plugin-react-hooks": "^2.5.1",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
+    "postcss-preset-env": "^6.7.0",
     "prettier": "^1.19.1",
+    "tailwindcss": "^1.7.2",
     "typescript": "^3.9.7"
   },
   "config": {
