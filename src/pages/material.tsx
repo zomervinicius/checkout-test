@@ -7,8 +7,18 @@ import React from 'react';
 export default function Index(): {} {
   return (
     <Container maxWidth="sm">
-      <Box my={4}>
-        <Typography variant="h4" component="h1" gutterBottom>
+      <Box my={1}>
+        <Typography variant="subtitle1">
+          Next.js with TypeScript example
+        </Typography>
+        <Typography variant="subtitle2">
+          Next.js with TypeScript example
+        </Typography>
+        <Typography variant="body1">Next.js with TypeScript example</Typography>
+        <Typography variant="body2">Next.js with TypeScript example</Typography>
+        <Typography variant="h6">Next.js with TypeScript example</Typography>
+        <Typography variant="h5">Next.js with TypeScript example</Typography>
+        <Typography variant="caption">
           Next.js with TypeScript example
         </Typography>
       </Box>
