@@ -11,18 +11,18 @@ const Header: React.FC<{}> = () => {
       <Box marginTop={4}>
         <div className="flex flex-col flex-center lg:justify-between lg:flex-row">
           <div className="flex justify-center items-center">
-            <WhatsAppIcon color="secondary" fontSize="small" />
+            <WhatsAppIcon fontSize="small" />
             <Box marginLeft={1} />
             <Typography variant="subtitle1">(47) 9999-9999</Typography>
           </div>
           <div className="flex justify-around mt-2">
             <div className="flex lg:mr-5 items-center">
-              <PersonIcon color="secondary" fontSize="small" />
+              <PersonIcon fontSize="small" />
               <Box marginLeft={1} />
               <Typography variant="subtitle1">Arethusa</Typography>
             </div>
             <div className="flex items-center">
-              <LocationOnIcon color="secondary" fontSize="small" />
+              <LocationOnIcon fontSize="small" />
               <Box marginLeft={1} />
               <Typography variant="subtitle1">
                 Bom Retiro - Joinville, SC
