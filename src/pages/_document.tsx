@@ -1,7 +1,7 @@
-import { ServerStyleSheets } from '@material-ui/core/styles';
-import Document, { Head, Html, Main, NextScript } from 'next/document';
-import React from 'react';
-import theme from '../theme';
+import { ServerStyleSheets } from '@material-ui/core/styles'
+import Document, { Head, Html, Main, NextScript } from 'next/document'
+import React from 'react'
+import theme from '../theme'
 
 export default class MyDocument extends Document {
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -25,7 +25,7 @@ export default class MyDocument extends Document {
           <NextScript />
         </body>
       </Html>
-    );
+    )
   }
 }
 
@@ -55,24 +55,24 @@ MyDocument.getInitialProps = async ctx => {
   // 4. page.render
 
   // Render app and page and get the context of the page with collected side effects.
-  const sheets = new ServerStyleSheets();
-  const originalRenderPage = ctx.renderPage;
+  const sheets = new ServerStyleSheets()
+  const originalRenderPage = ctx.renderPage
 
   ctx.renderPage = () =>
     originalRenderPage({
       enhanceApp: App => props => {
-        return sheets.collect(<App {...props} />);
-      },
-    });
+        return sheets.collect(<App {...props} />)
+      }
+    })
 
-  const initialProps = await Document.getInitialProps(ctx);
+  const initialProps = await Document.getInitialProps(ctx)
 
   return {
     ...initialProps,
     // Styles fragment is rendered after the app and page rendering finish.
     styles: [
       ...React.Children.toArray(initialProps.styles),
-      sheets.getStyleElement(),
-    ],
-  };
-};
+      sheets.getStyleElement()
+    ]
+  }
+}
