@@ -14,13 +14,14 @@
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
-  "extends": ["plugin:react/recommended", "airbnb", "prettier/react"],
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "prettier",
+    "prettier/react"
+  ],
   "plugins": ["react", "react-hooks", "jsx-a11y", "prettier"],
   "rules": {
-    "comma-dangle": 0,
-    "semi": 0,
-    "object-curly-newline": 0,
-    "quotes": 0,
     "prettier/prettier": "error",
     "import/prefer-default-export": "off",
     "react/prop-types": "off",
@@ -59,13 +60,7 @@
         ],
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-var-requires": "off",
-        "@typescript-eslint/quotes": [
-          2,
-          "backtick",
-          {
-            "avoidEscape": true
-          }
-        ]
+        "@typescript-eslint/quotes": 0
       }
     }
   ],

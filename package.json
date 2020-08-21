@@ -26,12 +26,16 @@
     }
   },
   "lint-staged": {
-    "./src/**/*.{ts,js,jsx,tsx}": [
-      "yarn lint --fix",
-      "yarn format"
+    "*.{js,jsx,less,md,json}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "eslint --fix",
+      "prettier --parser=typescript --write"
     ]
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
     "next": "^9.5.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
