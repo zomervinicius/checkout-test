@@ -2,6 +2,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 
 // Create a theme instance.
 const theme = createMuiTheme({
+  spacing: 5,
   typography: {
     subtitle1: {
       fontSize: 12,
@@ -40,6 +41,7 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: '#212121',
+      light: '#616161',
     },
     background: {
       default: '#fff',
