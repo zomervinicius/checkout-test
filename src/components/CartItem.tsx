@@ -90,11 +90,17 @@ const CartItem: React.FC<{}> = () => {
               </Typography>
               <Box marginTop={2} />
               <div className="flex items-center">
-                <ChatBubbleOutlineIcon fontSize="small" color="primary" />
-                <Box marginLeft={1} />
-                <Typography variant="body1" color="primary">
-                  Adicionar observação
-                </Typography>
+                <IconButton
+                  aria-label="add_observation"
+                  size="small"
+                  style={{ padding: 0 }}
+                >
+                  <ChatBubbleOutlineIcon fontSize="small" color="primary" />
+                  <Box marginLeft={1} />
+                  <Typography variant="body1" color="primary">
+                    Adicionar observação
+                  </Typography>
+                </IconButton>
               </div>
             </div>
           </Box>
