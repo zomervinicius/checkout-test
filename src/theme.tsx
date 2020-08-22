@@ -4,6 +4,9 @@ import { createMuiTheme } from '@material-ui/core/styles'
 const theme = createMuiTheme({
   spacing: 5,
   typography: {
+    button: {
+      textTransform: 'none'
+    },
     subtitle1: {
       fontSize: 12,
       fontWeight: 400
