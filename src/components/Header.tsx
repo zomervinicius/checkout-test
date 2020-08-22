@@ -31,7 +31,7 @@ const Header: React.FC<{}> = () => {
           </div>
         </div>
       </Box>
-      <Box marginTop={5}>
+      <Box marginTop={5} marginBottom={4}>
         <div className="flex justify-center">
           <img src={logo} alt="logo" />
         </div>
