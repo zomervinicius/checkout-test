@@ -3,21 +3,12 @@ import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
+import { createStyles, makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import React from 'react'
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
-    root: {
-      width: '100%',
-      marginTop: 30,
-      [theme.breakpoints.up('lg')]: {
-        width: '25%',
-        height: 'max-content',
-        marginTop: 0
-      }
-    },
     bullet: {
       display: 'inline-block',
       margin: '0 2px',
@@ -35,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const OrderSummary: React.FC<{}> = () => {
   const classes = useStyles()
   return (
-    <Card className={classes.root}>
+    <Card>
       <Box style={{ padding: '15px 20px 5px 20px' }}>
         <Typography className={classes.title} variant="h6" gutterBottom>
           RESUMO DO PEDIDO

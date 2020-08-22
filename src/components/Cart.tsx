@@ -6,10 +6,19 @@ import OrderSummary from './OrderSummary'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
+    cartItems: {
       width: '100%',
       [theme.breakpoints.up('lg')]: {
         width: '75%'
+      }
+    },
+    orderSummary: {
+      width: '100%',
+      marginTop: 30,
+      [theme.breakpoints.up('lg')]: {
+        width: '25%',
+        height: 'max-content',
+        marginTop: 0
       }
     }
   })
@@ -29,12 +38,14 @@ const Cart: React.FC<{}> = () => {
           <Typography variant="caption">Carrinho</Typography>
         </Box>
         <div className="flex flex-col lg:flex-row">
-          <Box className={classes.root}>
+          <Box className={classes.cartItems}>
             {[...new Array(1)].map(item => (
               <CartItem key={item} />
             ))}
           </Box>
-          <OrderSummary />
+          <Box className={classes.orderSummary}>
+            <OrderSummary />
+          </Box>
         </div>
       </Box>
     </>
