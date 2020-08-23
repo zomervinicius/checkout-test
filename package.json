@@ -40,7 +40,10 @@
     "next": "^9.5.2",
     "next-images": "^1.4.1",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "react-hook-form": "^6.5.0",
+    "react-input-mask": "^2.0.4",
+    "react-text-mask": "^5.4.3"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",

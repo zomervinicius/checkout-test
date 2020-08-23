@@ -5,6 +5,7 @@ import CardActions from '@material-ui/core/CardActions'
 import CardContent from '@material-ui/core/CardContent'
 import { createStyles, makeStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
+import { useRouter } from 'next/router'
 import React from 'react'
 
 const useStyles = makeStyles(() =>
@@ -24,6 +25,7 @@ const useStyles = makeStyles(() =>
 )
 
 const OrderSummary: React.FC<{}> = () => {
+  const router = useRouter()
   const classes = useStyles()
   return (
     <Card>
@@ -56,6 +58,7 @@ const OrderSummary: React.FC<{}> = () => {
             color="primary"
             fullWidth
             style={{ padding: 10, borderRadius: 0 }}
+            onClick={() => router.push('/checkout')}
           >
             Finalizar a compra
           </Button>
