@@ -1,3 +1,4 @@
+import { CartItemsProvider } from '@/context/cart'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { ThemeProvider } from '@material-ui/core/styles'
 import { AppProps } from 'next/app'
@@ -28,11 +29,13 @@ export default function MyApp(props: AppProps): {} {
         />
       </Head>
       <div className="md:container md:mx-auto mx-5">
-        <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
-          <Component {...pageProps} />
-        </ThemeProvider>
+        <CartItemsProvider>
+          <ThemeProvider theme={theme}>
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </CartItemsProvider>
       </div>
     </>
   )

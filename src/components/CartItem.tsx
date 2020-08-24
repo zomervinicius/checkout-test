@@ -14,6 +14,8 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
 import DeleteIcon from '@material-ui/icons/Delete'
 import RemoveIcon from '@material-ui/icons/Remove'
 import React from 'react'
+import { CartItems } from '../context/cart'
+import formatNumber from '../utils/formatNumber'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,7 +58,11 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 )
 
-const CartItem: React.FC<{}> = () => {
+interface CartItemProps {
+  item: CartItems
+}
+
+const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const classes = useStyles()
   return (
     <List className={classes.root}>
@@ -68,17 +74,16 @@ const CartItem: React.FC<{}> = () => {
         <Box className={classes.sectionsMargin} display="flex">
           <Box className={classes.firstSection} display="flex">
             <img
-              src="https://simplest-meuspedidos-arquivos.s3.amazonaws.com/media/imagens_auto/alimentos/arroz_pacote.jpg"
+              src={item.url_imagem}
               alt="product_img"
               style={{
-                height: 100
+                height: 100,
+                width: 100
               }}
             />
             <Box marginRight={8} />
             <div className="flex flex-col">
-              <Typography variant="subtitle2">
-                Nome produto XPTO Qualquer - Marca TantoFaz
-              </Typography>
+              <Typography variant="subtitle2">{item.nome}</Typography>
               <Box marginTop={2} />
               <Typography
                 variant="body1"
@@ -86,7 +91,7 @@ const CartItem: React.FC<{}> = () => {
                   color: '#9E9E9E'
                 }}
               >
-                SKU 932UR2389RU298
+                {`SKU ${item.sku}`}
               </Typography>
               <Box marginTop={2} />
               <div className="flex items-center">
@@ -115,7 +120,7 @@ const CartItem: React.FC<{}> = () => {
                   <IconButton aria-label="decrease_quantity" size="small">
                     <RemoveIcon color="secondary" />
                   </IconButton>
-                  <Typography variant="body2">3</Typography>
+                  <Typography variant="body2">{item.quantidade}</Typography>
                   <IconButton aria-label="increase_quantity" size="small">
                     <AddIcon color="primary" />
                   </IconButton>
@@ -126,7 +131,9 @@ const CartItem: React.FC<{}> = () => {
           <Box className={classes.thirdSection} display="flex">
             <div className="flex justify-between lg:flex-col items-center">
               <div className="mr-8 lg:mr-0">
-                <Typography variant="body2">R$ 62,50</Typography>
+                <Typography variant="body2">
+                  {formatNumber(item.valor_unitario)}
+                </Typography>
               </div>
               <IconButton aria-label="increase_quantity" size="small">
                 <DeleteIcon color="primary" fontSize="small" />
