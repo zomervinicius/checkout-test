@@ -1,3 +1,5 @@
+import { CartItems, useCartItemsContext } from '@/context/cart'
+import { useDialogContext } from '@/context/dialog'
 import {
   Box,
   Card,
@@ -14,7 +16,6 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline'
 import DeleteIcon from '@material-ui/icons/Delete'
 import RemoveIcon from '@material-ui/icons/Remove'
 import React from 'react'
-import { CartItems } from '../context/cart'
 import formatNumber from '../utils/formatNumber'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -64,6 +65,17 @@ interface CartItemProps {
 
 const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const classes = useStyles()
+  const { setOpen, setActiveEditItem } = useDialogContext()
+  const {
+    increaseItemQuantity,
+    decreaseItemQuantity,
+    deleteItem
+  } = useCartItemsContext()
+
+  const handleAddObservation = (itemId: number): void => {
+    setActiveEditItem(itemId)
+    setOpen(true)
+  }
   return (
     <List className={classes.root}>
       <ListItem
@@ -99,12 +111,21 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
                   aria-label="add_observation"
                   size="small"
                   style={{ padding: 0 }}
+                  onClick={() =>
+                    !item.observacao && handleAddObservation(item.id)
+                  }
                 >
                   <ChatBubbleOutlineIcon fontSize="small" color="primary" />
                   <Box marginLeft={1} />
-                  <Typography variant="body1" color="primary">
-                    Adicionar observação
-                  </Typography>
+                  {item.observacao ? (
+                    <Typography variant="body1" color="secondary">
+                      Deixei um comentário nesse produto
+                    </Typography>
+                  ) : (
+                    <Typography variant="body1" color="primary">
+                      Adicionar observação
+                    </Typography>
+                  )}
                 </IconButton>
               </div>
             </div>
@@ -117,11 +138,19 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
                 }}
               >
                 <div className={classes.controls}>
-                  <IconButton aria-label="decrease_quantity" size="small">
+                  <IconButton
+                    aria-label="decrease_quantity"
+                    size="small"
+                    onClick={() => decreaseItemQuantity(item.id)}
+                  >
                     <RemoveIcon color="secondary" />
                   </IconButton>
                   <Typography variant="body2">{item.quantidade}</Typography>
-                  <IconButton aria-label="increase_quantity" size="small">
+                  <IconButton
+                    aria-label="increase_quantity"
+                    size="small"
+                    onClick={() => increaseItemQuantity(item.id)}
+                  >
                     <AddIcon color="primary" />
                   </IconButton>
                 </div>
@@ -132,10 +161,14 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
             <div className="flex justify-between lg:flex-col items-center">
               <div className="mr-8 lg:mr-0">
                 <Typography variant="body2">
-                  {formatNumber(item.valor_unitario)}
+                  {formatNumber(item.valor_unitario * item.quantidade)}
                 </Typography>
               </div>
-              <IconButton aria-label="increase_quantity" size="small">
+              <IconButton
+                aria-label="increase_quantity"
+                size="small"
+                onClick={() => deleteItem(item.id)}
+              >
                 <DeleteIcon color="primary" fontSize="small" />
               </IconButton>
             </div>

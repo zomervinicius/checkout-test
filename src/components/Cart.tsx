@@ -3,6 +3,7 @@ import { Box, CircularProgress, Typography } from '@material-ui/core'
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import React from 'react'
 import CartItem from './CartItem'
+import FormDialog from './FormDialog'
 import OrderSummary from './OrderSummary'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const Cart: React.FC<{}> = () => {
   const classes = useStyles()
   const { cartItems, loading, errorMessage } = useCartItemsContext()
+  const cartItemsList = Object.values(cartItems)
   const title = (
     <Box marginTop={6} marginBottom={6} display="flex" justifyContent="center">
       <Typography variant="caption">Carrinho</Typography>
@@ -58,14 +60,15 @@ const Cart: React.FC<{}> = () => {
       </>
     )
   }
-  if (cartItems.length > 0) {
+  if (cartItemsList.length > 0) {
     return (
       <>
         <Box marginRight={10} marginLeft={10} marginBottom={16}>
           {title}
+          <FormDialog />
           <div className="flex flex-col lg:flex-row">
             <Box className={classes.cartItems}>
-              {cartItems.map(item => (
+              {cartItemsList.map(item => (
                 <CartItem key={item.id} item={item} />
               ))}
             </Box>
@@ -77,7 +80,7 @@ const Cart: React.FC<{}> = () => {
       </>
     )
   }
-  if (cartItems.length === 0) {
+  if (cartItemsList.length === 0) {
     return (
       <>
         {title}
