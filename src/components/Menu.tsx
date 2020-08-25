@@ -1,3 +1,5 @@
+import { useOrderSummaryContext } from '@/context/orderSummary'
+import formatNumber from '@/utils/formatNumber'
 import { Box, Typography } from '@material-ui/core'
 import LocalOfferIcon from '@material-ui/icons/LocalOffer'
 import LocalShippingIcon from '@material-ui/icons/LocalShipping'
@@ -8,6 +10,7 @@ import React from 'react'
 import SearchField from './SearchField'
 
 const Menu: React.FC<{}> = () => {
+  const { itemsTotalPrice } = useOrderSummaryContext()
   return (
     <>
       <Box marginTop={4}>
@@ -29,7 +32,9 @@ const Menu: React.FC<{}> = () => {
           <div className="flex justify-center items-center">
             <ShoppingCartIcon color="primary" fontSize="default" />
             <Box marginLeft={1} />
-            <Typography variant="h6">R$ 62,50</Typography>
+            <Typography variant="h6">
+              {formatNumber(itemsTotalPrice())}
+            </Typography>
           </div>
         </div>
       </Box>
