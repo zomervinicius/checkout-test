@@ -1,11 +1,12 @@
 module.exports = {
-  purge: ['./components/**/*.tsx', './pages/**/*.tsx'],
+  // purge: ['./components/**/*.tsx', './pages/**/*.tsx'],
+  purge: [],
   theme: {
-    extend: {},
+    extend: {}
   },
   variants: {},
   plugins: ['tailwindcss', 'postcss-preset-env'],
   future: {
-    removeDeprecatedGapUtilities: true,
-  },
-};
+    removeDeprecatedGapUtilities: true
+  }
+}
