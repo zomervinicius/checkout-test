@@ -1,53 +1,40 @@
-<p align="center">
-  <img src="https://www.joaopedro.cc/img/github/typescript-nextjs-starter.png" alt="Next.js and TypeScript">
-</p>
+# Checkout test
 
-<p align="center">
-  <img src="https://img.shields.io/static/v1?label=PRs&message=welcome&style=for-the-badge&color=24B36B&labelColor=000000" alt="PRs welcome!" />
+### https://checkout-test.zomervinicius.vercel.app/
 
-  <img alt="License" src="https://img.shields.io/github/license/jpedroschmitz/typescript-nextjs-starter?style=for-the-badge&color=24B36B&labelColor=000000">
+## About this Project
 
-  <a href="https://twitter.com/intent/follow?screen_name=jpedroschmitz">
-    <img src="https://img.shields.io/twitter/follow/jpedroschmitz?style=for-the-badge&color=24B36B&labelColor=000000" alt="Follow @jpedroschmitz" />
-  </a>
-</p>
+Frontend checkout test to apply for a job
 
-<br>
+## Technologies
 
-A TypeScript starter for Next.js that includes all you need to build amazing projects 🔥
+Next + Tailwind CSS + Material-UI + Context API
 
-- 📏 **ESLint** — Pluggable JavaScript linter
-- 💖 **Prettier** - Opinionated Code Formatter
-- 🐶 **Husky** — Use git hooks with ease
-- 📄 **Commitizen** - Conventional commit messages CLI
-- 🚓 **Commitlint** - Lint commit messages
-- 🚫 **lint-staged** - Run linters against staged git files
-- 🗂 **Root import** - Import folders and files using the `@` prefix.
+## 🚀 Quick start
 
-## 🚀 Getting started
+### Tools needed
 
-First of all you need to have `node` and `npm` (or `yarn`) installed on your machine.
+- https://nodejs.org/en/download/
+- npm or yarn
 
-Then, you can clone this repository and run the following commands inside the project folder:
+### Clone this repo
 
-1. `npm install` or `yarn`;
-2. `yarn dev`;
+```shell
+https://github.com/ZomerVinicius/checkout-test.git
+```
 
-To view the project you can open `http://localhost:3000`.
+### Install node dependencies
 
-## 🤝 Contributing
+```shell
+npm install or yarn install
+```
 
-1. Fork this repository;
-2. Create your branch: `git checkout -b my-new-feature`;
-3. Commit your changes: `git commit -m 'Add some feature'`;
-4. Push to the branch: `git push origin my-new-feature`.
+### Start development server
 
-**After your pull request is merged**, you can safely delete your branch.
+```shell
+yarn develop
+```
 
-## 📝 License
+### Layout example
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for more information.
-
----
-
-Made with ♥ by João Pedro Schmitz
+https://projects.invisionapp.com/share/C5YGCCCH2XQ
