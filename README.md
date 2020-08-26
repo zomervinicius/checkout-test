@@ -32,7 +32,7 @@ npm install or yarn install
 ### Start development server
 
 ```shell
-yarn develop
+yarn dev
 ```
 
 ### Layout example
