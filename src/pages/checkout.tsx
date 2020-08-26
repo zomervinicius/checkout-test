@@ -1,17 +1,21 @@
 import Header from '@/components/Header'
-import { Box } from '@material-ui/core'
+import Menu from '@/components/Menu'
+import { useCartItemsContext } from '@/context/cart'
+import { Box, CircularProgress } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
+import { Alert } from '@material-ui/lab'
+import Link from 'next/link'
 import React from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import InputMask from 'react-input-mask'
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    marginTop: theme.spacing(3),
+    marginTop: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center'
@@ -31,11 +35,44 @@ const useStyles = makeStyles(theme => ({
 const Checkout: React.FC<{}> = () => {
   const classes = useStyles()
   const { register, handleSubmit, control, errors } = useForm()
-  console.log(errors)
+  const {
+    checkout,
+    loading,
+    checkoutErrorMessage,
+    orderId
+  } = useCartItemsContext()
+  const removeSpecialCharFromString = (str: string): string => {
+    let string = str
+    string = string.replace(/_/g, '')
+    string = string.replace(/-/g, '')
+    return string
+  }
+  if (orderId) {
+    return (
+      <>
+        <Header />
+        <Menu />
+        <Box mt={15} />
+        <Container component="main" maxWidth="xs">
+          <div className={classes.paper}>
+            <Alert severity="success">
+              <Typography variant="body2">
+                Pedido criado com sucesso!
+              </Typography>
+              <Typography variant="body1">
+                Para criar um novo pedido, clique <a href="/">aqui</a>
+              </Typography>
+            </Alert>
+          </div>
+        </Container>
+      </>
+    )
+  }
   return (
     <>
       <Header />
-      <Box mt={15} />
+      <Menu />
+      <Box mt={7} />
       <Container component="main" maxWidth="xs">
         <div className={classes.paper}>
           <Typography component="h1" variant="h5">
@@ -43,9 +80,12 @@ const Checkout: React.FC<{}> = () => {
           </Typography>
           <form
             className={classes.form}
-            onSubmit={handleSubmit(data => alert(JSON.stringify(data)))}
+            onSubmit={handleSubmit(data => checkout(data))}
           >
             <Controller
+              rules={{
+                required: true
+              }}
               as={
                 <TextField
                   fullWidth
@@ -54,23 +94,18 @@ const Checkout: React.FC<{}> = () => {
                   inputRef={register}
                   variant="outlined"
                   margin="normal"
-                  error={errors.state}
+                  error={errors.estado}
+                  required
                 />
               }
               control={control}
+              name="estado"
+            />
+
+            <Controller
               rules={{
                 required: true
               }}
-              name="state"
-              defaultValue=""
-            />
-            {errors.state && errors.state.type === 'required' && (
-              <Typography variant="body1" color="error">
-                Campo obrigatório
-              </Typography>
-            )}
-
-            <Controller
               as={
                 <TextField
                   variant="outlined"
@@ -79,23 +114,19 @@ const Checkout: React.FC<{}> = () => {
                   fullWidth
                   label="Cidade"
                   type="city"
+                  required
                   id="city"
-                  error={errors.city}
+                  error={errors.cidade}
                 />
               }
               control={control}
+              name="cidade"
+            />
+
+            <Controller
               rules={{
                 required: true
               }}
-              name="city"
-              defaultValue=""
-            />
-            {errors.city && errors.city.type === 'required' && (
-              <Typography variant="body1" color="error">
-                Campo obrigatório
-              </Typography>
-            )}
-            <Controller
               as={
                 <TextField
                   variant="outlined"
@@ -104,22 +135,14 @@ const Checkout: React.FC<{}> = () => {
                   fullWidth
                   type="address"
                   id="address"
+                  required
                   label="Endereço"
-                  error={errors.address}
+                  error={errors.endereco}
                 />
               }
               control={control}
-              rules={{
-                required: true
-              }}
-              name="address"
-              defaultValue=""
+              name="endereco"
             />
-            {errors.address && errors.address.type === 'required' && (
-              <Typography variant="body1" color="error">
-                Campo obrigatório
-              </Typography>
-            )}
 
             <div className={classes.paper}>
               <Typography component="h1" variant="h5">
@@ -127,71 +150,103 @@ const Checkout: React.FC<{}> = () => {
               </Typography>
             </div>
             <Controller
-              as={
-                <InputMask>
+              control={control}
+              name="cartaoCredito"
+              rules={{
+                required: true,
+                minLength: {
+                  value: 16,
+                  message: 'Preencha o campo corretamente'
+                }
+              }}
+              render={({ onChange, onBlur, value }) => (
+                <InputMask
+                  mask="9999-9999-9999-9999"
+                  value={value}
+                  onBlur={onBlur}
+                  onChange={e => {
+                    onChange(removeSpecialCharFromString(e.target.value))
+                  }}
+                >
                   {() => (
                     <TextField
-                      error={errors.creditCard}
+                      error={errors.cartaoCredito}
                       variant="outlined"
                       margin="normal"
                       inputRef={register}
+                      required
                       fullWidth
                       label="Número cartão de crédito"
                     />
                   )}
                 </InputMask>
-              }
-              control={control}
-              name="creditCard"
-              mask="9999-9999-9999-9999"
-              alwaysShowMask
-              rules={{
-                required: true,
-                minLength: { value: 16, message: '' }
-              }}
+              )}
             />
-
-            {errors.creditCard && errors.creditCard.type === 'required' && (
+            {errors.cartaoCredito && errors.cartaoCredito.type === 'minLength' && (
               <Typography variant="body1" color="error">
-                Campo obrigatório
+                {errors.cartaoCredito.message}
               </Typography>
             )}
             <Controller
-              as={
-                <InputMask>
+              render={({ onChange, onBlur, value }) => (
+                <InputMask
+                  mask="999"
+                  value={value}
+                  onChange={e => {
+                    onChange(removeSpecialCharFromString(e.target.value))
+                  }}
+                  onBlur={onBlur}
+                >
                   {() => (
                     <TextField
                       variant="outlined"
-                      inputRef={register}
                       margin="normal"
-                      error={errors.secureCode}
+                      error={errors.codigoCartao}
+                      required
                       fullWidth
                       label="Código de segurança"
                     />
                   )}
                 </InputMask>
-              }
+              )}
               control={control}
-              name="secureCode"
-              mask="999"
+              name="codigoCartao"
               required
-              alwaysShowMask
-              rules={{ required: true, minLength: { value: 3, message: '' } }}
+              rules={{
+                required: true,
+                minLength: {
+                  value: 3,
+                  message: 'Preencha o campo corretamente'
+                }
+              }}
             />
-            {errors.secureCode && errors.secureCode.type === 'required' && (
+            {errors.codigoCartao && errors.codigoCartao.type === 'minLength' && (
               <Typography variant="body1" color="error">
-                Campo obrigatório
+                {errors.codigoCartao.message}
               </Typography>
+            )}
+            {checkoutErrorMessage && (
+              <div className="mt-3">
+                <Typography variant="body2" color="error">
+                  {checkoutErrorMessage}
+                </Typography>
+              </div>
             )}
             <Button
               type="submit"
               fullWidth
               variant="contained"
+              disabled={loading}
               color="primary"
               className={classes.submit}
             >
-              Finalizar compra
+              {loading ? <CircularProgress size={24} /> : 'Finalizar compra'}
             </Button>
+            <div className="mt-3">
+              <span>
+                Deseja ajustar o pedido? clique <Link href="/">aqui</Link>
+              </span>
+            </div>
           </form>
         </div>
       </Container>

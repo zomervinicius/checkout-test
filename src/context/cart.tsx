@@ -20,15 +20,20 @@ export interface UseCartItemsState {
   increaseItemQuantity: Function
   decreaseItemQuantity: Function
   deleteItem: Function
+  checkout: Function
   addItemObservation: Function
   loading: boolean
   errorMessage: string
+  checkoutErrorMessage: string
+  orderId: string
 }
 
 function useCartItems(): UseCartItemsState {
   const [cartItems, setCartItems] = useState<Record<string, CartItems>>({})
   const [loading, setLoading] = useState<boolean>(true)
   const [errorMessage, setErrorMessage] = useState<string>('')
+  const [checkoutErrorMessage, setCheckoutErrorMessage] = useState<string>('')
+  const [orderId, setOrderId] = useState<string>('')
 
   async function increaseItemQuantity(id: number): Promise<void> {
     setCartItems(
@@ -73,6 +78,7 @@ function useCartItems(): UseCartItemsState {
 
   async function getCartItems(): Promise<void> {
     setLoading(true)
+
     try {
       const response = await api({
         method: 'GET',
@@ -90,16 +96,39 @@ function useCartItems(): UseCartItemsState {
     setLoading(false)
   }
 
+  async function checkout(userInfo): Promise<void> {
+    const cartItemsList = Object.values(cartItems)
+    const checkoutData = { items: cartItemsList, userInfo }
+    setLoading(true)
+    try {
+      const response = await api({
+        method: 'POST',
+        url: `/carrinho`,
+        data: checkoutData
+      })
+      // simular retorno de numero pedido
+      setOrderId('10')
+    } catch (error) {
+      setCheckoutErrorMessage(
+        'Não foi possível finalizar o pedido, tente novamente'
+      )
+    }
+    setLoading(false)
+  }
+
   useEffect(() => {
     getCartItems()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return {
+    checkout,
+    orderId,
     cartItems,
     setCartItems,
     loading,
     errorMessage,
+    checkoutErrorMessage,
     increaseItemQuantity,
     decreaseItemQuantity,
     deleteItem,

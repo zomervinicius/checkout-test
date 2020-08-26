@@ -6,6 +6,7 @@ import { ThemeProvider } from '@material-ui/core/styles'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 import React from 'react'
+import '../styles/global.css'
 import '../styles/index.css'
 import theme from '../theme'
 
