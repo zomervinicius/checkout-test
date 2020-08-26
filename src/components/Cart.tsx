@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
       [theme.breakpoints.up('md')]: {
         width: '70%'
+      },
+      [theme.breakpoints.only('md')]: {
+        marginRight: '40px'
       }
     },
     orderSummary: {
