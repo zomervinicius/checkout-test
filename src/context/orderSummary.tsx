@@ -57,15 +57,36 @@ function useOrderSummary(): UseOrderSummaryState {
     let discountPrice = 0
     const itemsQuantity = itemsTotalQuantity()
     const itemsPrice = itemsTotalPrice()
-    if (itemsQuantity > discountRules?.quantidade_itens_minima?.valor) {
+    // check if two discount rules apply
+    if (
+      itemsPrice > discountRules?.valor_minimo?.valor &&
+      itemsQuantity > discountRules?.quantidade_itens_minima?.valor
+    ) {
+      // if first discount percentage is bigger than second
+      if (
+        discountRules.valor_minimo.desconto_percentual >
+        discountRules.quantidade_itens_minima.desconto_percentual
+      ) {
+        // apply only first rule
+        discountPrice +=
+          itemsPrice * (discountRules.valor_minimo.desconto_percentual / 100)
+        // apply only second rule
+      } else {
+        discountPrice +=
+          itemsPrice *
+          (discountRules.quantidade_itens_minima.desconto_percentual / 100)
+      }
+      // if only first rule discount rule apply
+    } else if (itemsPrice > discountRules?.valor_minimo?.valor) {
+      discountPrice +=
+        itemsPrice * (discountRules.valor_minimo.desconto_percentual / 100)
+      // if only second discount rule apply
+    } else if (itemsQuantity > discountRules?.quantidade_itens_minima?.valor) {
       discountPrice +=
         itemsPrice *
         (discountRules.quantidade_itens_minima.desconto_percentual / 100)
     }
-    if (itemsPrice > discountRules?.valor_minimo?.valor) {
-      discountPrice +=
-        itemsPrice * (discountRules.valor_minimo.desconto_percentual / 100)
-    }
+
     return discountPrice
   }
 
