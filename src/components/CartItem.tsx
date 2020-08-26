@@ -26,10 +26,15 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: theme.palette.background.paper,
       padding: 0
     },
-    firstSection: { width: '60%' },
+    firstSection: {
+      width: '60%',
+      [theme.breakpoints.down('xs')]: {
+        width: '100%'
+      }
+    },
     secondSection: {
       width: '20%',
-      [theme.breakpoints.down('lg')]: {
+      [theme.breakpoints.down('xs')]: {
         marginTop: 20,
         width: '90%'
       }
@@ -37,7 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
     thirdSection: {
       width: '20%',
       justifyContent: 'flex-end',
-      [theme.breakpoints.down('lg')]: {
+      [theme.breakpoints.down('xs')]: {
         marginTop: 20,
         width: '100%',
         justifyContent: 'center'
@@ -46,7 +51,7 @@ const useStyles = makeStyles((theme: Theme) =>
     sectionsMargin: {
       width: 'inherit',
       margin: '25px 10px 15px 10px',
-      [theme.breakpoints.down('lg')]: {
+      [theme.breakpoints.down('xs')]: {
         flexDirection: 'column'
       }
     },
@@ -158,8 +163,8 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
             </Card>
           </Box>
           <Box className={classes.thirdSection} display="flex">
-            <div className="flex justify-between lg:flex-col items-center">
-              <div className="mr-8 lg:mr-0">
+            <div className="flex justify-between sm:flex-col items-center">
+              <div className="mr-8 md:mr-0">
                 <Typography variant="body2">
                   {formatNumber(item.valor_unitario * item.quantidade)}
                 </Typography>

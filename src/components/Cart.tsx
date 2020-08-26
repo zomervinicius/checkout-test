@@ -10,15 +10,15 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     cartItems: {
       width: '100%',
-      [theme.breakpoints.up('lg')]: {
-        width: '75%'
+      [theme.breakpoints.up('md')]: {
+        width: '70%'
       }
     },
     orderSummary: {
       width: '100%',
       marginTop: 30,
-      [theme.breakpoints.up('lg')]: {
-        width: '25%',
+      [theme.breakpoints.up('md')]: {
+        width: '30%',
         height: 'max-content',
         marginTop: 0
       }
@@ -27,6 +27,16 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
       display: 'flex',
       padding: '30px 0 30px 0'
+    },
+    containerMargins: {
+      marginRight: theme.spacing(10),
+      marginLeft: theme.spacing(10),
+      marginBottom: theme.spacing(16),
+      [theme.breakpoints.down('sm')]: {
+        marginRight: theme.spacing(5),
+        marginLeft: theme.spacing(5),
+        marginBottom: theme.spacing(8)
+      }
     }
   })
 )
@@ -63,18 +73,20 @@ const Cart: React.FC<{}> = () => {
   if (cartItemsList.length > 0) {
     return (
       <>
-        <Box marginRight={10} marginLeft={10} marginBottom={16}>
-          {title}
-          <FormDialog />
-          <div className="flex flex-col lg:flex-row">
-            <Box className={classes.cartItems}>
-              {cartItemsList.map(item => (
-                <CartItem key={item.id} item={item} />
-              ))}
-            </Box>
-            <Box className={classes.orderSummary}>
-              <OrderSummary />
-            </Box>
+        <Box className={classes.containerMargins}>
+          <div className="my-6 md:my-12 mb-10 md:mb-20">
+            {title}
+            <FormDialog />
+            <div className="flex flex-col md:flex-row">
+              <Box className={classes.cartItems}>
+                {cartItemsList.map(item => (
+                  <CartItem key={item.id} item={item} />
+                ))}
+              </Box>
+              <Box className={classes.orderSummary}>
+                <OrderSummary />
+              </Box>
+            </div>
           </div>
         </Box>
       </>
