@@ -4,7 +4,7 @@
 
 ## About this Project
 
-Frontend checkout test to apply for a job
+Frontend checkout test 
 
 ## Technologies
 
